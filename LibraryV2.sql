@@ -1,3 +1,17 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Apr 05, 2019 at 05:14 PM
+-- Server version: 10.1.28-MariaDB
+-- PHP Version: 7.0.24
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -5,10 +19,9 @@
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `Library`
+-- Database: `LibraryV2`
+use LibraryV2;
 --
-CREATE DATABASE IF NOT EXISTS `LibraryV2` DEFAULT CHARACTER SET latin1 COLLATE latin1_general_ci;
-USE `LibraryV2`;
 
 -- --------------------------------------------------------
 
@@ -16,7 +29,6 @@ USE `LibraryV2`;
 -- Table structure for table `Author`
 --
 
-DROP TABLE IF EXISTS `Author`;
 CREATE TABLE `Author` (
   `ID` int(11) NOT NULL,
   `Forename` varchar(50) COLLATE latin1_general_ci NOT NULL,
@@ -41,7 +53,6 @@ INSERT INTO `Author` (`ID`, `Forename`, `Surname`) VALUES
 -- Table structure for table `Author_Book`
 --
 
-DROP TABLE IF EXISTS `Author_Book`;
 CREATE TABLE `Author_Book` (
   `AuthorID` int(11) DEFAULT NULL,
   `BookID` int(11) DEFAULT NULL
@@ -66,7 +77,6 @@ INSERT INTO `Author_Book` (`AuthorID`, `BookID`) VALUES
 -- Table structure for table `Book`
 --
 
-DROP TABLE IF EXISTS `Book`;
 CREATE TABLE `Book` (
   `ID` int(11) NOT NULL,
   `Title` varchar(50) COLLATE latin1_general_ci NOT NULL,
@@ -92,7 +102,6 @@ INSERT INTO `Book` (`ID`, `Title`, `ISBN`, `Category`) VALUES
 -- Table structure for table `Branch`
 --
 
-DROP TABLE IF EXISTS `Branch`;
 CREATE TABLE `Branch` (
   `ID` int(11) NOT NULL,
   `Name` varchar(50) COLLATE latin1_general_ci NOT NULL,
@@ -116,7 +125,6 @@ INSERT INTO `Branch` (`ID`, `Name`, `Address`, `Phone`, `Email`) VALUES
 -- Table structure for table `Customer`
 --
 
-DROP TABLE IF EXISTS `Customer`;
 CREATE TABLE `Customer` (
   `ID` int(11) NOT NULL,
   `Forename` varchar(50) COLLATE latin1_general_ci NOT NULL,
@@ -141,13 +149,12 @@ INSERT INTO `Customer` (`ID`, `Forename`, `Surname`, `Email`, `Phone`) VALUES
 -- Table structure for table `Inventory`
 --
 
-DROP TABLE IF EXISTS `Inventory`;
 CREATE TABLE `Inventory` (
   `ID` int(11) NOT NULL,
   `BookID` int(11) DEFAULT NULL,
   `BranchID` int(11) DEFAULT NULL,
   `PurchaserID` int(11) DEFAULT NULL,
-  `LoanStatus` enum('Available', 'Borrowed','Overdue') COLLATE latin1_general_ci DEFAULT NULL
+  `LoanStatus` enum('Available','Borrowed','Overdue') COLLATE latin1_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
@@ -159,7 +166,7 @@ INSERT INTO `Inventory` (`ID`, `BookID`, `BranchID`, `PurchaserID`, `LoanStatus`
 (2, 1, 2, 1, 'Borrowed'),
 (3, 2, 3, 1, 'Overdue'),
 (4, 3, 2, 1, 'Borrowed'),
-(5, 4, 1, 1, 'Avalable'),
+(5, 4, 1, 1, ''),
 (6, 5, 2, 1, 'Available'),
 (7, 6, 1, 1, 'Available');
 
@@ -169,7 +176,6 @@ INSERT INTO `Inventory` (`ID`, `BookID`, `BranchID`, `PurchaserID`, `LoanStatus`
 -- Table structure for table `Loan`
 --
 
-DROP TABLE IF EXISTS `Loan`;
 CREATE TABLE `Loan` (
   `ID` int(11) NOT NULL,
   `InventoryID` int(11) DEFAULT NULL,
@@ -195,7 +201,6 @@ INSERT INTO `Loan` (`ID`, `InventoryID`, `CustomerID`, `IssueDate`, `DueDate`, `
 -- Table structure for table `Staff`
 --
 
-DROP TABLE IF EXISTS `Staff`;
 CREATE TABLE `Staff` (
   `ID` int(11) NOT NULL,
   `Forname` varchar(50) COLLATE latin1_general_ci NOT NULL,
@@ -355,6 +360,20 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ChooseAuthor_ViewBooks`(ChooseAuthor int(11))
+BEGIN
+
+SELECT Author.ID, Author.Forename, Author.Surname, Book.Title
+FROM Book
+INNER JOIN Author_Book
+ON Author_Book.AuthorID = Book.ID
+INNER JOIN Author
+ON Author_Book.BookID = Author.ID
+WHERE Author.ID = ChooseAuthor;
+
+END$$
+DELIMITER ;
 
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `BookReturned`(IN p_InventoryID int(11), IN p_customerID int(11), INp_ReturnDate date)
@@ -401,20 +420,6 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ViewLoanStatus`(IN ViewStatus varchar(50))
-BEGIN
-SELECT Customer.ID, Customer.Forename, Customer.Surname, Customer.Email, InventoryID, LoanStatus
-FROM Customer
-INNER JOIN Loan
-ON Loan.CustomerID = Customer.ID
-INNER JOIN Inventory
-ON InventoryID = Inventory.ID
-WHERE Inventory.LoanStatus = ViewStatus;
-
-END$$
-DELIMITER ;
-
-DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ViewAll_AuthorsBooks`(ChooseAuthor int(11))
 BEGIN
 
@@ -429,16 +434,15 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ChooseAuthor_ViewBooks`(ChooseAuthor int(11))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ViewLoanStatus`(IN ViewStatus varchar(50))
 BEGIN
-
-SELECT Author.ID, Author.Forename, Author.Surname, Book.Title
-FROM Book
-INNER JOIN Author_Book
-ON Author_Book.AuthorID = Book.ID
-INNER JOIN Author
-ON Author_Book.BookID = Author.ID
-WHERE Author.ID = ChooseAuthor;
+SELECT Customer.ID, Customer.Forename, Customer.Surname, Customer.Email, InventoryID, LoanStatus
+FROM Customer
+INNER JOIN Loan
+ON Loan.CustomerID = Customer.ID
+INNER JOIN Inventory
+ON InventoryID = Inventory.ID
+WHERE Inventory.LoanStatus = ViewStatus;
 
 END$$
 DELIMITER ;
@@ -482,72 +486,49 @@ values (p_forename,p_surname, p_email, p_phone);
 END$$
 DELIMITER ;
 
--- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Mar 18, 2019 at 05:49 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.0.24
+# Privileges for `Librarian`@`localhost`
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+GRANT USAGE ON *.* TO 'Librarian'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
+GRANT SELECT ON `libraryv2`.`author` TO 'Librarian'@'localhost';
 
+GRANT SELECT ON `libraryv2`.`book` TO 'Librarian'@'localhost';
 
-# Privileges for `dee`@`example.com`
+GRANT SELECT ON `libraryv2`.`author_book` TO 'Librarian'@'localhost';
 
-GRANT USAGE ON *.* TO 'dee'@'example.com' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
+GRANT SELECT, UPDATE ON `libraryv2`.`inventory` TO 'Librarian'@'localhost';
 
-GRANT SELECT ON `book`.* TO 'dee'@'example.com';
+GRANT SELECT, UPDATE ON `libraryv2`.`loan` TO 'Librarian'@'localhost';
+
+GRANT EXECUTE ON PROCEDURE `libraryv2`.`viewloanstatus` TO 'Librarian'@'localhost';
 
 
-# Privileges for `librarian`@`example.com`
+# Privileges for `Manager`@`localhost`
 
-GRANT SELECT ON *.* TO 'librarian'@'example.com' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
+GRANT USAGE ON *.* TO 'Manager'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON `library`.`author` TO 'librarian'@'example.com';
+GRANT SELECT, INSERT ON `libraryv2`.`author` TO 'Manager'@'localhost';
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON `library`.`inventory` TO 'librarian'@'example.com';
+GRANT SELECT, INSERT ON `libraryv2`.`book` TO 'Manager'@'localhost';
 
-GRANT SELECT ON `library`.`staff` TO 'librarian'@'example.com';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `libraryv2`.`staff` TO 'Manager'@'localhost';
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON `library`.`author_book` TO 'librarian'@'example.com';
+GRANT SELECT, INSERT ON `libraryv2`.`author_book` TO 'Manager'@'localhost';
 
-GRANT SELECT ON `library`.`branch` TO 'librarian'@'example.com';
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON `library`.`book` TO 'librarian'@'example.com';
-
-GRANT SELECT (Surname, Email, Forename, ID), INSERT (Surname, Email, Forename, ID, Phone), UPDATE (Surname, Email, Forename, ID, Phone), DELETE ON `library`.`customer` TO 'librarian'@'example.com';
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON `library`.`loan` TO 'librarian'@'example.com';
+GRANT EXECUTE ON PROCEDURE `libraryv2`.`newbook_and_newauthor` TO 'Manager'@'localhost';
 
 
-# Privileges for `manager`@`example.com`
+# Privileges for `Omo`@`localhost`
 
-GRANT SELECT, INSERT, DELETE, UPDATE on Library.* TO 'manager'@'example.com' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70' WITH GRANT OPTION;
+GRANT USAGE ON *.* TO 'Omo'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
+GRANT SELECT ON `libraryv2`.`book` TO 'Omo'@'localhost';
 
+GRANT SELECT ON `libraryv2`.`inventory` TO 'Omo'@'localhost';
 
+GRANT SELECT ON `libraryv2`.`loan` TO 'Omo'@'localhost';
 
-# Privileges for `mona`@`example.com`
-
-GRANT SELECT ON *.* TO 'mona'@'example.com' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
-
-GRANT SELECT, INSERT, UPDATE, DELETE ON `phpmyadmin`.* TO 'mona'@'example.com';
-
-
-# Privileges for `omo`@`example.com`
-
-GRANT RELOAD, SHUTDOWN, PROCESS, REFERENCES, SHOW DATABASES, SUPER, LOCK TABLES, REPLICATION SLAVE, REPLICATION CLIENT, CREATE USER ON *.* TO 'omo'@'example.com' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70' WITH GRANT OPTION;
-
-
-# Privileges for `pma`@`localhost`
-
-GRANT ALL PRIVILEGES ON *.* TO 'pma'@'localhost' WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE `libraryv2`.`chooseauthor_viewbooks` TO 'Omo'@'localhost';
 
 
 # Privileges for `root`@`localhost`
@@ -556,4 +537,4 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 
 GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
 
-
+GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
