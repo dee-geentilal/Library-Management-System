@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<?php
+session_start();
+
+$servername = "localhost";
+$dbname = "LibraryV2";
+
+?>
+
 
 <html>
     <head>
@@ -9,16 +17,16 @@
     </head>
     <body class="login">
         <div> 
-            <form class="customer" method="post" action="CustomerPage.php">
+            <form class="customer" method="post">
                 <div class="form-group">
-                    <label for="username">Username/Email</label>
+                    <label for="username">Email</label>
                     <input type="text" class="form-control" id="username" name="username" />
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" name="password" />
                 </div>
-                <input type="submit" value="Login" />
+                <input type="submit" value="Customer Login" />
             </form>
         </div>
         <div>
@@ -31,24 +39,56 @@
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="staff-password" name="staff-password" />
                 </div>
-                <input type="submit" value="Login" />
+                <input type="submit" value="Staff Login" />
             </form>
         </div>
-        <div>
+<!--        <div>
             <form class="guest" action="ErrorPage.php" >
                 <input type="submit" value="Continue as Guest" />
             </form>        
-        </div>
+        </div>-->
                 
-                
-        <?php
-           /* if(!empty($_SESSION)){
-                echo "Welcome " . $_SESSION['username'] . '<br>';
-                echo "You favourite colour is " . $_SESSION['color'] . '<br>';
-                echo "You favourite animal is " . $_SESSION['animal'] . '<br>';
-                echo "<a href='SessionPostPage2.php'>Go to Page 2</a><br>";
+        <div>        
+            <?php
+            if(!empty($_POST)) {
+                $usertype = "root";
+                $password = "";
 
-            }*/
-        ?>
+                $email = $_POST['username'];
+                $customerPassword = $_POST['password'];
+                //echo "got form";
+
+
+                try {
+                    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $usertype, $password);
+
+                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                    $sql = ("SELECT * FROM Customer WHERE `Email`= ? AND `Password` =MD5(?)");
+
+                    $stmt = $conn->prepare($sql);
+                    $stmt->execute([$email, $customerPassword]);
+                    $exists = $stmt->fetch();
+
+                    if ($exists) {
+                        header('Location: CustomerPage.php');
+                    } else {
+                        header('Location: ErrorPage.php');
+                    }
+
+                } catch (Exception $ex) {
+                    $ex->getMessage();
+                    echo $ex;
+                }
+
+                $conn = null;
+
+            } 
+            //else {
+            //    echo "no form";
+            //}
+            ?>
+        </div>
+       
     </body>
 </html>
