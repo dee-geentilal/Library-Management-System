@@ -4,7 +4,7 @@ require_once 'dbConfig.php';
 
 $query =  "DELETE FROM Customer
            WHERE ID = 7";
-
+$db_connection->prepare($query);
 try {
 if  ($db_connection->exec($query)){
         echo "You have successfully deleted the records.";
