@@ -1,0 +1,53 @@
+
+
+body {
+    font-family: 'Pacifico', cursive;
+    font-size: 20px;
+    background-color: whitesmoke;
+    padding: 20px;
+    color: navy;
+    text-align: center;
+}
+
+.login{
+    font-family: 'Concert One', cursive;
+}
+
+
+.form-group {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 60%;
+    color: #000;
+    font-size: 30px;
+}
+
+.customer, .staff, .guest {
+    display: inline-block;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    padding: 20px;
+}
+
+input[type=submit] {
+    margin-right: 10px;
+    border: 2px solid #000;
+    border-radius: 15px;
+    border-color: navy;
+    font-size: 20px;
+    font-family: 'Concert One', cursive; 
+    color: gray;
+    padding-left: 20px;
+    padding-right: 20px;
+    float: right;
+}
+
+input[type=text],input[type=password]{
+    padding: 0 30px;
+}
+
