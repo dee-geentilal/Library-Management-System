@@ -488,6 +488,8 @@ DELIMITER ;
 
 # Privileges for `Librarian`@`localhost`
 
+CREATE  USER 'Librarian'@'localhost';
+
 GRANT USAGE ON *.* TO 'Librarian'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
 GRANT SELECT ON `libraryv2`.`author` TO 'Librarian'@'localhost';
@@ -505,6 +507,8 @@ GRANT EXECUTE ON PROCEDURE `libraryv2`.`viewloanstatus` TO 'Librarian'@'localhos
 
 # Privileges for `Manager`@`localhost`
 
+CREATE USER 'Manager'@'localhost';
+
 GRANT USAGE ON *.* TO 'Manager'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
 GRANT SELECT, INSERT ON `libraryv2`.`author` TO 'Manager'@'localhost';
@@ -519,6 +523,8 @@ GRANT EXECUTE ON PROCEDURE `libraryv2`.`newbook_and_newauthor` TO 'Manager'@'loc
 
 
 # Privileges for `Omo`@`localhost`
+
+CREATE USER 'Omo'@'localhost';
 
 GRANT USAGE ON *.* TO 'Omo'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
