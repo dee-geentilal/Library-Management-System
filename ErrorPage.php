@@ -80,7 +80,8 @@ WHERE Inventory.LoanStatus='Available'";
                             
                          
                     <?php   
-                    }   
+                    } 
+                    unset($results);
                     ?>
 
                 </tbody>
