@@ -10,11 +10,13 @@ h1{
  text-align: center;
 font-size: 70px;
 color: red;
+padding-right:30px;
     
 }
 body{
     background-color: whitesmoke;
  font-family: 'Dokdo', cursive;
+ text-align: center;
 }
 p{
     padding-top:30px;
@@ -22,4 +24,5 @@ p{
     padding-right:100px;
     padding-bottom: 50px;
     font-size:25px;
+    text-align: center;
 }
