@@ -492,7 +492,6 @@ DELIMITER ;
 
 # Privileges for `Librarian`@`localhost`
 
-CREATE  USER 'Librarian'@'localhost';
 
 GRANT USAGE ON `LibraryV2`.* TO 'Librarian'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
@@ -511,7 +510,6 @@ GRANT EXECUTE ON PROCEDURE `LibraryV2`.`viewloanstatus` TO 'Librarian'@'localhos
 
 # Privileges for `Manager`@`localhost`
 
-CREATE USER 'Manager'@'localhost';
 
 GRANT USAGE ON `LibraryV2`.* TO 'Manager'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
@@ -528,7 +526,6 @@ GRANT EXECUTE ON PROCEDURE `LibraryV2`.`newbook_and_newauthor` TO 'Manager'@'loc
 
 # Privileges for `Customer`@`localhost`
 
-CREATE USER 'Customer'@'localhost';
 
 GRANT USAGE ON `LibraryV2`.* TO 'Customer'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
