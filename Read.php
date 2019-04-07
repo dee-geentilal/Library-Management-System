@@ -2,7 +2,7 @@
 require_once 'dbConfig.php';
 session_start();
 
-$query = "SELECT Title, ISBN, Category FROM Love";
+$query = "SELECT Title, ISBN, Category FROM Book";
 $db_connection->prepare($query);
 try {
 if ($results = $db_connection->query($query)){
