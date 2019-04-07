@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `LibraryV2`
+CREATE Database LibraryV2;
 use LibraryV2;
 --
 
@@ -486,55 +487,59 @@ values (p_forename,p_surname, p_email, p_phone);
 END$$
 DELIMITER ;
 
+
+
 # Privileges for `Librarian`@`localhost`
 
 CREATE  USER 'Librarian'@'localhost';
 
-GRANT USAGE ON *.* TO 'Librarian'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
+GRANT USAGE ON `LibraryV2`.* TO 'Librarian'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
-GRANT SELECT ON `libraryv2`.`author` TO 'Librarian'@'localhost';
+GRANT SELECT ON `LibraryV2`.`author` TO 'Librarian'@'localhost';
 
-GRANT SELECT ON `libraryv2`.`book` TO 'Librarian'@'localhost';
+GRANT SELECT ON `LibraryV2`.`book` TO 'Librarian'@'localhost';
 
-GRANT SELECT ON `libraryv2`.`author_book` TO 'Librarian'@'localhost';
+GRANT SELECT ON `LibraryV2`.`author_book` TO 'Librarian'@'localhost';
 
-GRANT SELECT, UPDATE ON `libraryv2`.`inventory` TO 'Librarian'@'localhost';
+GRANT SELECT, UPDATE ON `LibraryV2`.`inventory` TO 'Librarian'@'localhost';
 
-GRANT SELECT, UPDATE ON `libraryv2`.`loan` TO 'Librarian'@'localhost';
+GRANT SELECT, UPDATE ON `LibraryV2`.`loan` TO 'Librarian'@'localhost';
 
-GRANT EXECUTE ON PROCEDURE `libraryv2`.`viewloanstatus` TO 'Librarian'@'localhost';
+GRANT EXECUTE ON PROCEDURE `LibraryV2`.`viewloanstatus` TO 'Librarian'@'localhost';
 
 
 # Privileges for `Manager`@`localhost`
 
+
 CREATE USER 'Manager'@'localhost';
 
-GRANT USAGE ON *.* TO 'Manager'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
+GRANT USAGE ON `LibraryV2`.* TO 'Manager'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
-GRANT SELECT, INSERT ON `libraryv2`.`author` TO 'Manager'@'localhost';
+GRANT SELECT, INSERT ON `LibraryV2`.`author` TO 'Manager'@'localhost';
 
-GRANT SELECT, INSERT ON `libraryv2`.`book` TO 'Manager'@'localhost';
+GRANT SELECT, INSERT ON `LibraryV2`.`book` TO 'Manager'@'localhost';
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON `libraryv2`.`staff` TO 'Manager'@'localhost';
+GRANT SELECT, INSERT, UPDATE, DELETE ON `LibraryV2`.`staff` TO 'Manager'@'localhost';
 
-GRANT SELECT, INSERT ON `libraryv2`.`author_book` TO 'Manager'@'localhost';
+GRANT SELECT, INSERT ON `LibraryV2`.`author_book` TO 'Manager'@'localhost';
 
-GRANT EXECUTE ON PROCEDURE `libraryv2`.`newbook_and_newauthor` TO 'Manager'@'localhost';
+GRANT EXECUTE ON PROCEDURE `LibraryV2`.`newbook_and_newauthor` TO 'Manager'@'localhost';
 
 
-# Privileges for `Omo`@`localhost`
+# Privileges for `Customer`@`localhost`
 
-CREATE USER 'Omo'@'localhost';
 
-GRANT USAGE ON *.* TO 'Omo'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
+CREATE USER 'Customer'@'localhost';
 
-GRANT SELECT ON `libraryv2`.`book` TO 'Omo'@'localhost';
+GRANT USAGE ON `LibraryV2`.* TO 'Customer'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
-GRANT SELECT ON `libraryv2`.`inventory` TO 'Omo'@'localhost';
+GRANT SELECT ON `LibraryV2`.`book` TO 'Omo'@'localhost';
 
-GRANT SELECT ON `libraryv2`.`loan` TO 'Omo'@'localhost';
+GRANT SELECT ON `LibraryV2`.`inventory` TO 'Omo'@'localhost';
 
-GRANT EXECUTE ON PROCEDURE `libraryv2`.`chooseauthor_viewbooks` TO 'Omo'@'localhost';
+GRANT SELECT ON `LibraryV2`.`loan` TO 'Omo'@'localhost';
+
+GRANT EXECUTE ON PROCEDURE `LibraryV2`.`chooseauthor_viewbooks` TO 'Omo'@'localhost';
 
 
 # Privileges for `root`@`localhost`
@@ -544,3 +549,6 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
 
 GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
+
+
+
