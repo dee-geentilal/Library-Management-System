@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2019 at 05:14 PM
--- Server version: 10.1.28-MariaDB
--- PHP Version: 7.0.24
+-- Generation Time: Apr 08, 2019 at 01:12 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.2.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -131,18 +131,19 @@ CREATE TABLE `Customer` (
   `Forename` varchar(50) COLLATE latin1_general_ci NOT NULL,
   `Surname` varchar(50) COLLATE latin1_general_ci NOT NULL,
   `Email` varchar(50) COLLATE latin1_general_ci NOT NULL,
-  `Phone` bigint(20) NOT NULL
+  `Phone` bigint(20) NOT NULL,
+  `Password` varchar(100) COLLATE latin1_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
 -- Dumping data for table `Customer`
 --
 
-INSERT INTO `Customer` (`ID`, `Forename`, `Surname`, `Email`, `Phone`) VALUES
-(1, 'Nikolett', 'Trenyik', 'trenyik.nikolett1@gmail.com', 447586825961),
-(2, 'Sasha', 'Massan', 'gurjinder.massan@gmail.com', 447889337248),
-(3, 'Omo', 'Ojo', 'omoladeishappy@gmail.com', 447956311637),
-(4, 'Mona', 'Bhagwat', 'bhagwat.mona@gmail.com', 447727085118);
+INSERT INTO `Customer` (`ID`, `Forename`, `Surname`, `Email`, `Phone`, `Password`) VALUES
+(1, 'Nikolett', 'Trenyik', 'trenyik.nikolett1@gmail.com', 447586825961, 'd521f765a49c72507257a2620612ee96'),
+(2, 'Sasha', 'Massan', 'gurjinder.massan@gmail.com', 447889337248, 'd521f765a49c72507257a2620612ee96'),
+(3, 'Omo', 'Ojo', 'omoladeishappy@gmail.com', 447956311637, 'd521f765a49c72507257a2620612ee96'),
+(4, 'Mona', 'Bhagwat', 'bhagwat.mona@gmail.com', 447727085118, 'd521f765a49c72507257a2620612ee96');
 
 -- --------------------------------------------------------
 
@@ -491,6 +492,8 @@ DELIMITER ;
 
 # Privileges for `Librarian`@`localhost`
 
+CREATE  USER 'Librarian'@'localhost';
+
 GRANT USAGE ON `LibraryV2`.* TO 'Librarian'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
 GRANT SELECT ON `LibraryV2`.`author` TO 'Librarian'@'localhost';
@@ -508,6 +511,8 @@ GRANT EXECUTE ON PROCEDURE `LibraryV2`.`viewloanstatus` TO 'Librarian'@'localhos
 
 # Privileges for `Manager`@`localhost`
 
+CREATE USER 'Manager'@'localhost';
+
 GRANT USAGE ON `LibraryV2`.* TO 'Manager'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
 GRANT SELECT, INSERT ON `LibraryV2`.`author` TO 'Manager'@'localhost';
@@ -523,15 +528,17 @@ GRANT EXECUTE ON PROCEDURE `LibraryV2`.`newbook_and_newauthor` TO 'Manager'@'loc
 
 # Privileges for `Customer`@`localhost`
 
+CREATE USER 'Customer'@'localhost';
+
 GRANT USAGE ON `LibraryV2`.* TO 'Customer'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
-GRANT SELECT ON `LibraryV2`.`book` TO 'Omo'@'localhost';
+GRANT SELECT ON `LibraryV2`.`book` TO 'Customer'@'localhost';
 
-GRANT SELECT ON `LibraryV2`.`inventory` TO 'Omo'@'localhost';
+GRANT SELECT ON `LibraryV2`.`inventory` TO 'Customer'@'localhost';
 
-GRANT SELECT ON `LibraryV2`.`loan` TO 'Omo'@'localhost';
+GRANT SELECT ON `LibraryV2`.`loan` TO 'Customer'@'localhost';
 
-GRANT EXECUTE ON PROCEDURE `LibraryV2`.`chooseauthor_viewbooks` TO 'Omo'@'localhost';
+GRANT EXECUTE ON PROCEDURE `LibraryV2`.`chooseauthor_viewbooks` TO 'Customer'@'localhost';
 
 
 # Privileges for `root`@`localhost`
@@ -541,6 +548,5 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
 
 GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
-
 
 
