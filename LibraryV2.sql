@@ -20,6 +20,7 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `LibraryV2`
+create database LibraryV2;
 use LibraryV2;
 --
 
