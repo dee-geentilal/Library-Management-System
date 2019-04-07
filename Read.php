@@ -1,6 +1,6 @@
 <?php
 require_once 'dbConfig.php';
-session_start();
+
 
 $query = "SELECT Title, ISBN, Category FROM Book";
 $db_connection->prepare($query);
