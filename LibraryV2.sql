@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `LibraryV2`
-create database LibraryV2;
+CREATE Database LibraryV2;
 use LibraryV2;
 --
 
@@ -487,6 +487,8 @@ values (p_forename,p_surname, p_email, p_phone);
 END$$
 DELIMITER ;
 
+
+
 # Privileges for `Librarian`@`localhost`
 
 GRANT USAGE ON *.* TO 'Librarian'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
@@ -539,3 +541,6 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
 
 GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
+
+
+
