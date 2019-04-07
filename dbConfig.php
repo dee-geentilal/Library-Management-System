@@ -13,6 +13,7 @@ $dsn = "mysql:host=$db_host; dbname=$db_name";
 //connecting with database
 try {
 $db_connection = new PDO($dsn, $db_username, $db_password);
+    $db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
 catch(PDOException $e) {
     echo "There was a failure connecting with the database. 
@@ -20,4 +21,4 @@ catch(PDOException $e) {
           
 }
 
-$db_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
