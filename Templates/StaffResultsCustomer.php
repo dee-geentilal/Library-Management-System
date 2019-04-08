@@ -5,7 +5,9 @@
         <meta charset="UTF-8">
         <title>Customer Results</title>
         <link rel="stylesheet" href="Styles.css"/>
-        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Concert+One" rel="stylesheet">
+
     </head>
     <body>
         <h2>Customer Details</h2>
@@ -48,5 +50,7 @@
         <a href="Logout.php">
             <button>Logout</button>
         </a>
+
     </body>
+
 </html>

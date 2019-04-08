@@ -23,9 +23,11 @@ body {
     width: 60%;
     color: #000;
     font-size: 30px;
+    text-align: left;
 }
 
-.customer, .staff, .guest {
+.customer, .staff, .registration {
+
     display: inline-block;
     text-align: left;
     margin-left: auto;
@@ -35,7 +37,8 @@ body {
 }
 
 input[type=submit] {
-    margin-right: 10px;
+
+    margin: 20px;
     border: 2px solid #000;
     border-radius: 15px;
     border-color: navy;
@@ -48,9 +51,7 @@ input[type=submit] {
 }
 
 input[type=text],input[type=password]{
-    padding: 0 30px;
+    padding: 0 10px;
 }
 
-.table {
-    padding: 20px;
-}
+

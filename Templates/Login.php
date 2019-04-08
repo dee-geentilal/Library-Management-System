@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <?php
-session_start();
+
+//session_start();
+
 
 $servername = "localhost";
 $dbname = "LibraryV2";
@@ -42,11 +44,13 @@ $dbname = "LibraryV2";
                 <input type="submit" value="Staff Login" />
             </form>
         </div>
-<!--        <div>
-            <form class="guest" action="ErrorPage.php" >
-                <input type="submit" value="Continue as Guest" />
+
+        <div>
+            <form class="registration" action="Registration.php" >
+                <input type="submit" value="Register" />
             </form>        
-        </div>-->
+        </div>
+
                 
         <div>        
             <?php
@@ -61,7 +65,6 @@ $dbname = "LibraryV2";
 
                 try {
                     $conn = new PDO("mysql:host=$servername; dbname=$dbname", $usertype, $password);
-
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                     $sql = ("SELECT * FROM Customer WHERE `Email`= ? AND `Password` =MD5(?)");
@@ -78,15 +81,13 @@ $dbname = "LibraryV2";
 
                 } catch (Exception $ex) {
                     $ex->getMessage();
-                    echo $ex;
+                    exit("Something went wrong!");
+
                 }
 
                 $conn = null;
 
-            } 
-            //else {
-            //    echo "no form";
-            //}
+            }
             ?>
         </div>
        
