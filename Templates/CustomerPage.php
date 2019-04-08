@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 
-session_start();
+//session_start();
 
 $servername = "localhost";
 $dbname = "LibraryV2";
@@ -32,17 +32,21 @@ if(!empty($_POST)) {
             $searchParam = "";
             $results = [];
             
-            if (isset($_POST['title'])) {
+            
+            if (!empty($_POST['title'])) {
                 $sql = $sql."WHERE Book.Title LIKE ?";
                 $searchParam = $title;
+               
        
-            } elseif (isset($_POST['author'])) {
-                $sql = $sql."WHERE Book.Author LIKE ?";
+            } elseif (!empty($_POST['author'])) {
+                $sql = $sql."WHERE Author.Surname LIKE ?";
                 $searchParam = $author;
                
-            } elseif  (isset($_POST['category'])) {
+               
+            } elseif (!empty($_POST['category'])) {
                 $sql = $sql."WHERE Book.Category LIKE ?";
                 $searchParam = $category;
+        
             
             } else {
                 throw new Exception ("Empty form.");
@@ -105,26 +109,26 @@ if(!empty($_POST)) {
                         <th>AUTHOR</th>
                         <th>CATEGORY</th>
                         <th>STATUS</th>
-                       
                     </tr>
                 </thead> 
                 <tbody>
                     <?php
+                    if (isset ($results)) {
+                        
+                    
+                        foreach($results AS $result){
+                        ?>
+                            <tr>
+                                <td><?php echo $result['Title']?></td>
+                                <td><?php echo $result['Forename'] . " " .$result['Surname']?></td>
+                                <td><?php echo $result['Category']?></td>
+                                <td><?php echo $result['LoanStatus']?></td>
 
-                    foreach($results AS $result){
-
-                    ?>
-                        <tr>
-                            <td><?php echo $result['Title']?></td>
-                            <td><?php echo $result['Forename'] . " " .$result['Surname']?></td>
-                            <td><?php echo $result['Category']?></td>
-                            <td><?php echo $result['LoanStatus']?></td>
-                           
                             
                          
                     <?php   
-                    } 
-                    unset($results);
+                        }
+                    }
                     ?>
 
                 </tbody>
