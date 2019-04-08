@@ -27,6 +27,7 @@ body {
 }
 
 .customer, .staff, .registration {
+
     display: inline-block;
     text-align: left;
     margin-left: auto;
@@ -36,6 +37,7 @@ body {
 }
 
 input[type=submit] {
+
     margin: 20px;
     border: 2px solid #000;
     border-radius: 15px;
@@ -51,4 +53,5 @@ input[type=submit] {
 input[type=text],input[type=password]{
     padding: 0 10px;
 }
+
 

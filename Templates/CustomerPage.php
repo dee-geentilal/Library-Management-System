@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <?php
 
+
 //session_start();
+
 
 $servername = "localhost";
 $dbname = "LibraryV2";
@@ -32,7 +34,6 @@ if(!empty($_POST)) {
             $searchParam = "";
             $results = [];
             
-            
             if (!empty($_POST['title'])) {
                 $sql = $sql."WHERE Book.Title LIKE ?";
                 $searchParam = $title;
@@ -47,6 +48,7 @@ if(!empty($_POST)) {
                 $sql = $sql."WHERE Book.Category LIKE ?";
                 $searchParam = $category;
         
+
             
             } else {
                 throw new Exception ("Empty form.");
@@ -109,10 +111,12 @@ if(!empty($_POST)) {
                         <th>AUTHOR</th>
                         <th>CATEGORY</th>
                         <th>STATUS</th>
+
                     </tr>
                 </thead> 
                 <tbody>
                     <?php
+
                     if (isset ($results)) {
                         
                     
@@ -129,6 +133,7 @@ if(!empty($_POST)) {
                     <?php   
                         }
                     }
+
                     ?>
 
                 </tbody>
