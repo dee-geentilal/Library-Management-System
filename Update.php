@@ -1,22 +1,44 @@
 <?php
+ require_once 'dbConfig.php';
 
-require_once 'dbConfig.php';
+    if(!isset($_POST['updateRecord'])){
+      header('Location: Edit.php');
+      die();
+    } else {
+      if(!isset($_POST['ID'])){
+        header('Location: Edit.php');
+        die();
+    } else {
 
-$query =  "UPDATE Customer
-           SET Forename = 'Keyaan', Email = 'keyaanpatel@gmail.com'
-           WHERE ID = 6";
-
-$db_connection->prepare($query);
-
-try {
-if  ($db_connection->exec($query)){
-        echo "You have successfully updated the records.";
-}   else {
-        echo "Failed to update the records.";
-} }
-catch(PDOException $e) {
+        try{
+        $id =$_POST['ID'];
+        $title = $_POST['Title'];
+        $isbn = $_POST['ISBN'];
+        $category =$_POST['Category'];
     
-    header('Location: ErrorPage.php');
-   exit();
-}
-$db_connection = NULL;
+        $query = "UPDATE Book 
+                  SET Title = :Title,
+                  ISBN = :ISBN,
+                  Category = :Category
+                  WHERE ID = :ID";
+
+         $result =$db_connection->prepare($query);
+
+        $result->execute([
+                  'Title'    =>  $title,
+                  'ISBN'     =>  $isbn,
+                  'Category' =>  $category,
+                  'ID'       =>  $id
+
+        ]);
+        echo "You have successfully updated the records.";
+    }
+
+    catch (Exception $e) {
+        echo "There was a failure - " . $e->getMessage();
+
+    }
+
+    }
+    }
+
