@@ -22,10 +22,10 @@ if(!empty ($_POST)){
         
         $stmt=$conn->prepare($sql);
         $success = $stmt->execute([$forename, $surname, $email, $phone, $password]);
-         echo "Record successfully created.". "      <a href='Login.php'>Login</a>";       
+            
         
         if ($success) {
-            echo("Record successfully created.");
+            echo("Record successfully created.". "      <a href='Login.php'>Login</a>");
         } else {
             throw new Exception("Something went wrong! Please try again.");
             echo '';

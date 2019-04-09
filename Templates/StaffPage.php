@@ -165,6 +165,10 @@ if(!empty($_POST) && !empty($_POST['search-member'])) {
             }
         }
         ?>
+        
+        <a href="Logout.php" class="logout">
+            <button>Logout</button>
+        </a>
             
     </body>
 </html>
