@@ -1,4 +1,3 @@
-
 <?php
 
 //session_start();
@@ -38,7 +37,6 @@ if(!empty($_POST) && !empty($_POST['search-member'])) {
 }
 ?>
 
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -48,10 +46,12 @@ if(!empty($_POST) && !empty($_POST['search-member'])) {
     </head>
     
     <body class="staff">
+
 <!--        <h1>Welcome!</h1>
         <h3>Search book by:</h3>
         <div> 
             <form class="book-search" method="post" >
+
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" name="title" />
@@ -73,11 +73,13 @@ if(!empty($_POST) && !empty($_POST['search-member'])) {
                 </div>
                 
                 <input type="submit" value="Search" />
+
             </form>-->
             
             <h3>Search Customer by Membership Number:</h3>
             
             <form class="customer-search" method="post">
+
                 <div>
                     <label for="membership">Membership Number</label>
                     <input type="number" class="form-control" id="membership" name="membership"/>
@@ -169,6 +171,6 @@ if(!empty($_POST) && !empty($_POST['search-member'])) {
         <a href="Logout.php" class="logout">
             <button>Logout</button>
         </a>
-            
+
     </body>
 </html>

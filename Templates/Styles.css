@@ -35,7 +35,6 @@ body {
     padding: 20px;
 }
 
-
 button {
     margin: 20px;
     border: 2px solid #000;
@@ -65,4 +64,3 @@ input[type=submit] {
 input[type=text],input[type=password]{
     padding: 0 10px;
 }
-

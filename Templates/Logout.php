@@ -10,6 +10,7 @@
     <body>
         <h2>You have successfully logged out.</h2>
         <h3>See you soon!</h3>
+
         <a href="Login.php" class="logout">
             <button>Login</button>
         </a>

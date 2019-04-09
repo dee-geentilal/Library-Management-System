@@ -493,6 +493,7 @@ DELIMITER ;
 # Privileges for `Librarian`@`localhost`
 
 
+=======
 GRANT USAGE ON `LibraryV2`.* TO 'Librarian'@'localhost' IDENTIFIED BY PASSWORD '*0BECD2563417B53867228AE94D7F1A9A1A1CED70';
 
 GRANT SELECT ON `LibraryV2`.`author` TO 'Librarian'@'localhost';
@@ -504,6 +505,8 @@ GRANT SELECT ON `LibraryV2`.`author_book` TO 'Librarian'@'localhost';
 GRANT SELECT, UPDATE ON `LibraryV2`.`inventory` TO 'Librarian'@'localhost';
 
 GRANT SELECT, UPDATE ON `LibraryV2`.`loan` TO 'Librarian'@'localhost';
+
+
 
 GRANT EXECUTE ON PROCEDURE `LibraryV2`.`viewloanstatus` TO 'Librarian'@'localhost';
 
@@ -533,9 +536,12 @@ GRANT SELECT ON `LibraryV2`.`book` TO 'Customer'@'localhost';
 
 GRANT SELECT ON `LibraryV2`.`inventory` TO 'Customer'@'localhost';
 
+
 GRANT SELECT ON `LibraryV2`.`loan` TO 'Customer'@'localhost';
 
 GRANT EXECUTE ON PROCEDURE `LibraryV2`.`chooseauthor_viewbooks` TO 'Customer'@'localhost';
+
+
 
 
 # Privileges for `root`@`localhost`
@@ -545,5 +551,4 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
 GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
 
 GRANT PROXY ON ''@'%' TO 'root'@'localhost' WITH GRANT OPTION;
-
 

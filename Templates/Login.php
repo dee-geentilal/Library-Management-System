@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+
 //session_start();
 
 $servername = "localhost";
@@ -42,6 +43,7 @@ $dbname = "LibraryV2";
                 <input type="submit" value="Staff Login" />
             </form>
         </div>
+
         <div>
             <form class="registration" action="Registration.php" >
                 <input type="submit" value="Register" />
@@ -83,6 +85,7 @@ $dbname = "LibraryV2";
                 $conn = null;
 
             } 
+
             ?>
         </div>
        
