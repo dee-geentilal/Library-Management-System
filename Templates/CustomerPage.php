@@ -2,8 +2,8 @@
 <?php
 
 
-//session_start();
 
+//session_start();
 
 $servername = "localhost";
 $dbname = "LibraryV2";
@@ -33,7 +33,7 @@ if(!empty($_POST)) {
             $category = "%".$_POST['category']."%";
             $searchParam = "";
             $results = [];
-            
+
             if (!empty($_POST['title'])) {
                 $sql = $sql."WHERE Book.Title LIKE ?";
                 $searchParam = $title;
@@ -47,8 +47,7 @@ if(!empty($_POST)) {
             } elseif (!empty($_POST['category'])) {
                 $sql = $sql."WHERE Book.Category LIKE ?";
                 $searchParam = $category;
-        
-
+       
             
             } else {
                 throw new Exception ("Empty form.");
@@ -116,7 +115,7 @@ if(!empty($_POST)) {
                 </thead> 
                 <tbody>
                     <?php
-
+                  
                     if (isset ($results)) {
                         
                     
@@ -141,6 +140,11 @@ if(!empty($_POST)) {
         
         </div>   
         
+        <a href="Logout.php" class="logout">
+            <button>Logout</button>
+        </a>
+        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>    
     </body>

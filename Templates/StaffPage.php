@@ -1,5 +1,3 @@
-
-
 <?php
 
 //session_start();
@@ -38,8 +36,6 @@ if(!empty($_POST) && !empty($_POST['search-member'])) {
          $conn = null;
 }
 ?>
-
-
 
 <html>
     <head>
@@ -89,7 +85,6 @@ if(!empty($_POST) && !empty($_POST['search-member'])) {
                     <input type="number" class="form-control" id="membership" name="membership"/>
                 </div>
                 
-
                 <input type="submit" value="Search" name="search-member"/>
             </form>
       
@@ -172,7 +167,10 @@ if(!empty($_POST) && !empty($_POST['search-member'])) {
             }
         }
         ?>
-            
+        
+        <a href="Logout.php" class="logout">
+            <button>Logout</button>
+        </a>
 
     </body>
 </html>

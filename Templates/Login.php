@@ -3,7 +3,6 @@
 
 //session_start();
 
-
 $servername = "localhost";
 $dbname = "LibraryV2";
 
@@ -50,7 +49,6 @@ $dbname = "LibraryV2";
                 <input type="submit" value="Register" />
             </form>        
         </div>
-
                 
         <div>        
             <?php
@@ -82,12 +80,12 @@ $dbname = "LibraryV2";
                 } catch (Exception $ex) {
                     $ex->getMessage();
                     exit("Something went wrong!");
-
                 }
 
                 $conn = null;
 
-            }
+            } 
+
             ?>
         </div>
        
