@@ -55,7 +55,7 @@
       </tbody>
     </table>
   </div>
-    <center> ADD A NEW BOOK<h1><a href="NewBook.php><i class="fas fa-folder-plus"></i></a></h1></center>
+    <center> ADD A NEW BOOK<h1><a href="NewBook.php"><i class="fas fa-folder-plus"></i></a></h1></center>
     
 </body>
 </html>
